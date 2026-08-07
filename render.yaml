@@ -1,0 +1,37 @@
+services:
+  - type: web
+    name: trissz-bot
+    env: python
+    plan: starter
+    buildCommand: pip install -r requirements.txt
+    startCommand: python main.py
+    healthCheckPath: /health
+    envVars:
+      - key: BOT_TOKEN
+        sync: false
+      - key: ADMIN_IDS
+        sync: false
+      - key: STORAGE_CHANNEL_ID
+        sync: false
+      - key: BOT_USERNAME
+        sync: false
+      - key: OWNER_IDS
+        sync: false
+      - key: BASE_URL
+        sync: false
+      - key: HOST
+        value: "0.0.0.0"
+      - key: PORT
+        value: "8000"
+      - key: DATABASE_PATH
+        value: /var/data/database.db
+      - key: DB_BACKEND
+        value: sqlite
+      - key: MONGO_URI
+        sync: false
+      - key: MONGO_DB_NAME
+        value: trissz_bot
+    disk:
+      name: bot-data
+      mountPath: /var/data
+      sizeGB: 1
