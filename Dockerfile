@@ -12,9 +12,11 @@ RUN pip install --no-cache-dir -r requirements.txt
 
 COPY . .
 
-# database.db lives on a volume so container restarts/redeploys never
-# lose data (see docker-compose.yml).
-VOLUME ["/app/data"]
+# database.db lives at this path so it survives container restarts -
+# mount a Railway Volume at /app/data in your Railway project settings
+# (Settings → Volumes → Add Volume → mount path "/app/data"). Docker's
+# VOLUME instruction isn't supported by Railway's builder, so the mount
+# is configured there instead of here.
 ENV DATABASE_PATH=/app/data/database.db
 
 EXPOSE 8000
